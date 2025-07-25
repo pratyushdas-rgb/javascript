@@ -50,3 +50,20 @@ console.log("Person: "+person["age"]); //Person: 200
 
 //-----------------------Object Properties-------------------
 
+//Accessing JavaScript Properties
+eg1 = person.age;
+console.log(eg1); //200
+
+eg2 = person["age"];
+console.log(eg2); //200
+
+//Adding New Properties
+person.height = "6 feet";
+console.log(person.height); //6 feet
+
+//Deleting Properties
+delete person.height;
+console.log(person); //{ firstName: 'John', lastName: 'Doe', age: 200, eyeColor: 'blue' }
+
+
+
