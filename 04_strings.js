@@ -16,6 +16,8 @@ console.log(text4); //Hello World!
 console.log(text.slice(7)); //HIJKLMNOPQRSTUVWXYZ
 console.log(text.slice(-12)); //OPQRSTUVWXYZ
 console.log(text.slice(7, 13)); //HIJKLM
+console.log(text.slice(7, 13)); //HIJKLM
+
 
 
 console.log(text.toLowerCase()) //abcdefghijklmnopqrstuvwxyz
