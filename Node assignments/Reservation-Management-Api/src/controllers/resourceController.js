@@ -1,11 +1,14 @@
-const resourceRepo = require('../repositories/resourceRepository');
+const resourceService = require('../services/resourceService');
 
 const getAllResources = async (req, res, next) => {
+
   try {
-    const resources = await resourceRepo.findAll();
+
+    const resources = await resourceService.getAllResources();
     res.json(resources);
   } catch (error) {
     next(error);
+    
   }
 };
 
@@ -16,7 +19,7 @@ const createResource = async (req, res, next) => {
       return res.status(400).json({ error: 'Resource name required' });
     }
 
-    const resource = await resourceRepo.create({ name, description });
+    const resource = await resourceService.createResource({ name, description });
     res.status(201).json(resource);
   } catch (error) {
     next(error);
@@ -24,45 +27,52 @@ const createResource = async (req, res, next) => {
 };
 
 const getResourceById = async (req, res, next) => {
-  try {
-    const resource = await resourceRepo.findById(req.params.id);
-    if (!resource) return res.status(404).json({ error: 'Resource not found' });
 
+  try {
+    const resource = await resourceService.getResourceById(req.params.id);
+    if (!resource) {
+      return res.status(404).json({ error: 'Resource not found' });
+    }
     res.json(resource);
   } catch (error) {
     next(error);
   }
+
 };
 
 const updateResource = async (req, res, next) => {
+  
+  
   try {
     const { name, description } = req.body;
-    const resource = await resourceRepo.findById(req.params.id);
 
-    if (!resource) return res.status(404).json({ error: 'Resource not found' });
 
-    const updatedResource = await resourceRepo.update(resource, {
-      name: name || resource.name,
-      description: description || resource.description,
-    });
+    const resource = await resourceService.updateResource(req.params.id, { name, description });
+    if (!resource) {
+      return res.status(404).json({ error: 'Resource not found' });
+    }
 
-    res.json(updatedResource);
+    res.json(resource);
+
+
   } catch (error) {
     next(error);
   }
 };
 
 const deleteResource = async (req, res, next) => {
+  
+  
   try {
-    const resource = await resourceRepo.findById(req.params.id);
-
-    if (!resource) return res.status(404).json({ error: 'Resource not found' });
-
-    await resourceRepo.remove(resource);
-    res.status(200).json({ msg: 'Resource deleted successfully' });
+    const deleted = await resourceService.deleteResource(req.params.id);
+    if (!deleted) {
+      return res.status(404).json({ error: 'Resource not found' });
+    }
+    res.json({ msg: 'Resource deleted successfully' });
   } catch (error) {
     next(error);
   }
+
 };
 
 module.exports = {

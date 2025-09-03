@@ -6,6 +6,8 @@ const {
   updateResource,
   deleteResource,
 } = require('../controllers/resourceController');
+
+
 const { authenticateToken, isAdmin } = require('../middleware/auth');
 
 const router = express.Router();
