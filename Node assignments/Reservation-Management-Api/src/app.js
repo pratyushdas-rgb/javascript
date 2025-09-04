@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.use('/auth', authRoutes);
 app.use('/resources', resourceRoutes);
-app.use('/reservations', reservationRoutes);
+// app.use('/reservations', reservationRoutes);
 
 app.use((err,req,res,next)=>{
     console.error(err.stack);

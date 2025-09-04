@@ -3,7 +3,6 @@ const Reservation = require('../models/Reservation');
 const Resource = require('../models/Resource');
 const User = require('../models/User');
 
-
 const getReservationsByUser = async (userId) => {
   return await Reservation.findAll({
 
@@ -44,7 +43,7 @@ const deleteReservation = async (reservation) => {
   return true;
 };
 
-//doubt
+
 const hasConflict = async (resourceId, start, end) => {
   return await Reservation.findOne({
     where: {
