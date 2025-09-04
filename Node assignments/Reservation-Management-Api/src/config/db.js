@@ -1,7 +1,11 @@
 const { Sequelize } = require('sequelize');
 const dotenv = require('dotenv');
 
-const sequelize = new Sequelize('reservation', 'postgres', 'argusadmin', {
+
+dotenv.config();
+
+
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
   host: 'localhost',
   dialect: 'postgres',
   port: 5432
