@@ -31,6 +31,17 @@ const createReservation = async (req, res, next) => {
   }
 };
 
+const getResourceByDate = async(req,res,next) =>{
+  try{
+    const {resourseId, startTime, endTime} = req.body;
+    if(!resourseId){
+      return res.status(400).json
+    }
+  }
+  catch{
+    
+  }
+}
 const cancelReservation = async (req, res, next) => {
 
   try {
