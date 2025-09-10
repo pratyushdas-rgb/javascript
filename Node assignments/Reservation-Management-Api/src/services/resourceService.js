@@ -21,6 +21,10 @@ const getResourceByUpdatedAtDate = async(updatedAt)=>{
   return await resourceRepo.findByUpdatedDate(updatedAt)
 } 
 
+const getResourceByUpdatedDateOnly = async(updatedAt)=>{
+  return await resourceRepo.findByUpdatedDateOnly(updatedAt)
+}
+
 
 const updateResource = async (id, {name, description}) => {
   const resource = await resourceRepo.findById(id);
@@ -42,4 +46,4 @@ const deleteResource = async (id) => {
   return { msg: 'Resource deleted successfully' };
 };
 
-module.exports = { getAllResources, createResource, getResourceById, updateResource, deleteResource ,getResourceByResourceName, getResourceByUpdatedAtDate };
+module.exports = { getAllResources, createResource, getResourceById, updateResource, deleteResource ,getResourceByResourceName, getResourceByUpdatedAtDate, getResourceByUpdatedDateOnly };

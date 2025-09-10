@@ -1,6 +1,6 @@
 const { SELECT } = require('sequelize/lib/query-types');
 const Resource = require('../models/Resource');
-
+const {Op} = require('sequelize')
 
 
 
@@ -22,6 +22,24 @@ const findByUpdatedDate = async(updatedAt)=>{
   return await Resource.findOne({where : {updatedAt}})
 }
 
+const findByUpdatedDateOnly = async(updatedAt) =>{
+    
+  const startOfDay = new Date(updatedAt);
+  startOfDay.setHours(0,0,0,0);
+
+  const endOfDay = new Date(updatedAt);
+  endOfDay.setHours(23,59,59,999);
+
+  return await Resource.findAll({
+    where: {
+      updatedAt: {
+        [Op.between] : [startOfDay, endOfDay]
+      }
+    }
+  })
+ 
+
+}
 
 const create = async (data) => {
   return await Resource.create(data);
@@ -36,7 +54,7 @@ const remove = async (resource) => {
   return await resource.destroy();
 };
 
-module.exports = { findAll, findById, create, update, remove, findByName, findByUpdatedDate };
+module.exports = { findAll, findById, create, update, remove, findByName, findByUpdatedDate, findByUpdatedDateOnly };
 
 
 // const { Client } = require('pg');

@@ -67,6 +67,19 @@ const getResourceByUpdatedAtDate = async(req,res,next) =>{
   }
 }
 
+const getResourceByUpdatedDateOnly = async(req,res,next) => {
+  try{
+    const resource = await resourceService.getResourceByUpdatedDateOnly(req.params.updatedAt);
+    if(!resource){
+      return res.status(404).json({error: 'Resource not found'});
+    }
+    res.json(resource);
+  }
+  catch(error){
+    next(error)
+  }
+}
+
 const updateResource = async (req, res, next) => {
   
   try {
@@ -111,5 +124,6 @@ module.exports = {
   updateResource,
   deleteResource,
   getResourceByResourceName,
-  getResourceByUpdatedAtDate
+  getResourceByUpdatedAtDate,
+  getResourceByUpdatedDateOnly
 };
