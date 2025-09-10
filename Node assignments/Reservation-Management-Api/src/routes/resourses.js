@@ -5,7 +5,8 @@ const {
   getResourceById,
   updateResource,
   deleteResource,
-  getResourceByResourceName
+  getResourceByResourceName,
+  getResourceByUpdatedAtDate
 } = require('../controllers/resourceController');
 
 
@@ -20,6 +21,7 @@ router.get('/:id', getResourceById);
 router.get('/name/:name', getResourceByResourceName)
 router.put('/:id', updateResource);
 router.delete('/:id', deleteResource);
+router.get('/date/:updatedAt',getResourceByUpdatedAtDate)
 
 
 module.exports = router;

@@ -11,19 +11,34 @@ const getAllReservations = async () => {
 
 const createReservation = async (userId, resourceId, startTime, endTime) => {
   const resource = await Resource.findByPk(resourceId);
-  if (!resource) throw new Error('Resource not found');
+  if (!resource) {
+    return { error: "Resource not found" };
+  }
 
   const start = new Date(startTime);
   const end = new Date(endTime);
-  
-  if (isNaN(start) || isNaN(end) || start >= end) {
-    throw new Error('Invalid time or endTime must be after startTime');
+
+  if (isNaN(start.getTime()) || isNaN(end.getTime()) || start >= end) {
+    return { error: "Invalid time. endTime must be after startTime" };
   }
 
   const conflict = await reservationRepo.hasConflict(resourceId, start, end);
-  if (conflict) throw new Error('Resource already reserved for this time slot');
+  if (conflict) {
+    return { error: "Resource already reserved for this time slot" };
+  }
 
-  return await reservationRepo.createReservation({ userId, resourceId, startTime, endTime });
+  const reservation = await reservationRepo.createReservation({
+    userId,
+    resourceId,
+    startTime,
+    endTime,
+  });
+
+  return { reservation };
+};
+
+module.exports = {
+  createReservation,
 };
 
 

@@ -18,30 +18,41 @@ const getAllReservations = async (req, res, next) => {
   }
 };
 
-const createReservation = async (req, res, next) => {
+
+const createReservation = async (req, res) => {
   try {
     const { resourceId, startTime, endTime } = req.body;
+
     if (!resourceId || !startTime || !endTime) {
-      return res.status(400).json({ error: 'Resource ID, startTime, endTime required' });
+      return res.status(400).json({
+        error: "Resource ID, startTime, and endTime are required",
+      });
     }
-    const reservation = await reservationService.createReservation(req.user.id, resourceId, startTime, endTime);
-    res.status(201).json(reservation);
+
+    const result = await reservationService.createReservation(
+      req.user.id,
+      resourceId,
+      startTime,
+      endTime
+    );
+
+    if (result.error) {
+      let status = 400;
+      if (result.error.includes("not found")) status = 404;
+      if (result.error.includes("reserved")) status = 409;
+      return res.status(status).json({ error: result.error });
+    }
+
+    return res.status(201).json(result.reservation);
+
   } catch (error) {
-    next(error);
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
-const getResourceByDate = async(req,res,next) =>{
-  try{
-    const {resourseId, startTime, endTime} = req.body;
-    if(!resourseId){
-      return res.status(400).json
-    }
-  }
-  catch{
-    
-  }
-}
+
+
 const cancelReservation = async (req, res, next) => {
 
   try {

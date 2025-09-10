@@ -17,11 +17,9 @@ const getResourceByResourceName = async(name)=>{
   return await resourceRepo.findByName(name);
 }
 
-const getResourceByUpdatedAtDate = async(name)=>{
+const getResourceByUpdatedAtDate = async(updatedAt)=>{
   return await resourceRepo.findByUpdatedDate(updatedAt)
 } 
-
-
 
 
 const updateResource = async (id, {name, description}) => {

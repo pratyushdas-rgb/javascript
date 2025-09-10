@@ -56,10 +56,11 @@ const getResourceByResourceName = async(req,res,next) =>{
 
 const getResourceByUpdatedAtDate = async(req,res,next) =>{
   try{
-    const resource = await resourceService.getResourceByResourceName(req.params.updatedAtDate);
+    const resource = await resourceService.getResourceByUpdatedAtDate(req.params.updatedAt);
     if(!resource){
       return res.status(404).json({error: 'Resource not found'});
     }
+    res.json(resource)
   }
   catch(error){
      next(error);
@@ -67,7 +68,6 @@ const getResourceByUpdatedAtDate = async(req,res,next) =>{
 }
 
 const updateResource = async (req, res, next) => {
-  
   
   try {
     const { name, description } = req.body;
@@ -91,9 +91,12 @@ const deleteResource = async (req, res, next) => {
   
   try {
     const deleted = await resourceService.deleteResource(req.params.id);
+  
+
     if (!deleted) {
       return res.status(404).json({ error: 'Resource not found' });
     }
+    
     res.json({ msg: 'Resource deleted successfully' });
   } catch (error) {
     next(error);
