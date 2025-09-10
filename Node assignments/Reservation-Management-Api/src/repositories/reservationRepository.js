@@ -68,6 +68,8 @@ module.exports = {
   findReservationById,
   deleteReservation,
   hasConflict,
+  getReservationsByUser,
+  getAllReservations
 };
 
 
