@@ -4,42 +4,66 @@ const {Op} = require('sequelize')
 
 
 
-const findAll = async () => {
-  return await Resource.findAll(); 
+const findAll = async (filters = {}) => {
+  const where = {};
+
+  // name 
+  if (filters.name) {
+    where.name = filters.name;
+  }
+
+  // updatedAt 
+  if (filters.updatedAt) {
+    where.updatedAt = new Date(filters.updatedAt);
+  }
+
+  // date only 
+  if (filters.updatedDateOnly) {
+    const startOfDay = new Date(filters.updatedDateOnly);
+    startOfDay.setHours(0, 0, 0, 0);
+
+    const endOfDay = new Date(filters.updatedDateOnly);
+    endOfDay.setHours(23, 59, 59, 999);
+
+    where.updatedAt = { [Op.between]: [startOfDay, endOfDay] };
+  }
+
+  return await Resource.findAll({ where });
 };
+
 
 
 const findById = async (id) => {
   return await Resource.findByPk(id); 
 };
 
-const findByName = async(name) =>{
-      return await Resource.findOne({where : {name}});
+// const findByName = async(name) =>{
+//       return await Resource.findOne({where : {name}});
 
-}
+// }
 
-const findByUpdatedDate = async(updatedAt)=>{
-  return await Resource.findOne({where : {updatedAt}})
-}
+// const findByUpdatedDate = async(updatedAt)=>{
+//   return await Resource.findOne({where : {updatedAt}})
+// }
 
-const findByUpdatedDateOnly = async(updatedAt) =>{
+// const findByUpdatedDateOnly = async(updatedAt) =>{
     
-  const startOfDay = new Date(updatedAt);
-  startOfDay.setHours(0,0,0,0);
+//   const startOfDay = new Date(updatedAt);
+//   startOfDay.setHours(0,0,0,0);
 
-  const endOfDay = new Date(updatedAt);
-  endOfDay.setHours(23,59,59,999);
+//   const endOfDay = new Date(updatedAt);
+//   endOfDay.setHours(23,59,59,999);
 
-  return await Resource.findAll({
-    where: {
-      updatedAt: {
-        [Op.between] : [startOfDay, endOfDay]
-      }
-    }
-  })
+//   return await Resource.findAll({
+//     where: {
+//       updatedAt: {
+//         [Op.between] : [startOfDay, endOfDay]
+//       }
+//     }
+//   })
  
 
-}
+// }
 
 const create = async (data) => {
   return await Resource.create(data);
@@ -54,7 +78,7 @@ const remove = async (resource) => {
   return await resource.destroy();
 };
 
-module.exports = { findAll, findById, create, update, remove, findByName, findByUpdatedDate, findByUpdatedDateOnly };
+module.exports = { findAll, findById, create, update, remove };
 
 
 // const { Client } = require('pg');

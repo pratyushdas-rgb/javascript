@@ -1,7 +1,7 @@
 const resourceRepo = require('../repositories/resourceRepository');
 
-const getAllResources = async () => {
-  return await resourceRepo.findAll();
+const getAllResources = async (filters) => {
+  return await resourceRepo.findAll(filters);
 };
 
 const createResource = async (name, description) => {
@@ -13,17 +13,17 @@ const getResourceById = async (id) => {
   return await resourceRepo.findById(id);
 };
 
-const getResourceByResourceName = async(name)=>{
-  return await resourceRepo.findByName(name);
-}
+// const getResourceByResourceName = async(name)=>{
+//   return await resourceRepo.findByName(name);
+// }
 
-const getResourceByUpdatedAtDate = async(updatedAt)=>{
-  return await resourceRepo.findByUpdatedDate(updatedAt)
-} 
+// const getResourceByUpdatedAtDate = async(updatedAt)=>{
+//   return await resourceRepo.findByUpdatedDate(updatedAt)
+// } 
 
-const getResourceByUpdatedDateOnly = async(updatedAt)=>{
-  return await resourceRepo.findByUpdatedDateOnly(updatedAt)
-}
+// const getResourceByUpdatedDateOnly = async(updatedAt)=>{
+//   return await resourceRepo.findByUpdatedDateOnly(updatedAt)
+// }
 
 
 const updateResource = async (id, {name, description}) => {
@@ -46,4 +46,4 @@ const deleteResource = async (id) => {
   return { msg: 'Resource deleted successfully' };
 };
 
-module.exports = { getAllResources, createResource, getResourceById, updateResource, deleteResource ,getResourceByResourceName, getResourceByUpdatedAtDate, getResourceByUpdatedDateOnly };
+module.exports = { getAllResources, createResource, getResourceById, updateResource, deleteResource };

@@ -1,14 +1,18 @@
 const resourceService = require('../services/resourceService');
 
 const getAllResources = async (req, res, next) => {
-
   try {
+    const { name, updatedAt, updatedDateOnly } = req.query;
 
-    const resources = await resourceService.getAllResources();
+    const filters = {};
+    if (name) filters.name = name;
+    if (updatedAt) filters.updatedAt = updatedAt;
+    if (updatedDateOnly) filters.updatedDateOnly = updatedDateOnly;
+
+    const resources = await resourceService.getAllResources(filters);
     res.json(resources);
   } catch (error) {
     next(error);
-    
   }
 };
 
@@ -40,45 +44,45 @@ const getResourceById = async (req, res, next) => {
 
 };
 
-const getResourceByResourceName = async(req,res,next) =>{
-  try{
-    const resource = await resourceService.getResourceByResourceName(req.params.name);
-    if(!resource){
-      return res.status(404).json({ error: 'Resource not found' });
+// const getResourceByResourceName = async(req,res,next) =>{
+//   try{
+//     const resource = await resourceService.getResourceByResourceName(req.params.name);
+//     if(!resource){
+//       return res.status(404).json({ error: 'Resource not found' });
 
-    }
-    res.json(resource)
-  }
-  catch(error){
-    next(error);
-  }
-}
+//     }
+//     res.json(resource)
+//   }
+//   catch(error){
+//     next(error);
+//   }
+// }
 
-const getResourceByUpdatedAtDate = async(req,res,next) =>{
-  try{
-    const resource = await resourceService.getResourceByUpdatedAtDate(req.params.updatedAt);
-    if(!resource){
-      return res.status(404).json({error: 'Resource not found'});
-    }
-    res.json(resource)
-  }
-  catch(error){
-     next(error);
-  }
-}
+// const getResourceByUpdatedAtDate = async(req,res,next) =>{
+//   try{
+//     const resource = await resourceService.getResourceByUpdatedAtDate(req.params.updatedAt);
+//     if(!resource){
+//       return res.status(404).json({error: 'Resource not found'});
+//     }
+//     res.json(resource)
+//   }
+//   catch(error){
+//      next(error);
+//   }
+// }
 
-const getResourceByUpdatedDateOnly = async(req,res,next) => {
-  try{
-    const resource = await resourceService.getResourceByUpdatedDateOnly(req.params.updatedAt);
-    if(!resource){
-      return res.status(404).json({error: 'Resource not found'});
-    }
-    res.json(resource);
-  }
-  catch(error){
-    next(error)
-  }
-}
+// const getResourceByUpdatedDateOnly = async(req,res,next) => {
+//   try{
+//     const resource = await resourceService.getResourceByUpdatedDateOnly(req.params.updatedAt);
+//     if(!resource){
+//       return res.status(404).json({error: 'Resource not found'});
+//     }
+//     res.json(resource);
+//   }
+//   catch(error){
+//     next(error)
+//   }
+// }
 
 const updateResource = async (req, res, next) => {
   
@@ -123,7 +127,7 @@ module.exports = {
   getResourceById,
   updateResource,
   deleteResource,
-  getResourceByResourceName,
-  getResourceByUpdatedAtDate,
-  getResourceByUpdatedDateOnly
+  // getResourceByResourceName,
+  // getResourceByUpdatedAtDate,
+  // getResourceByUpdatedDateOnly
 };

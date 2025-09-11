@@ -19,11 +19,11 @@ const router = express.Router();
 router.get('/', getAllResources);
 router.post('/', createResource);
 router.get('/:id', getResourceById);
-router.get('/name/:name', getResourceByResourceName)
+// router.get('/name/:name', getResourceByResourceName)
 router.put('/:id', updateResource);
 router.delete('/:id', deleteResource);
-router.get('/date/:updatedAt',getResourceByUpdatedAtDate)
-router.get('/dateonly/:updatedAt',getResourceByUpdatedDateOnly)
+// router.get('/date/:updatedAt',getResourceByUpdatedAtDate)
+// router.get('/dateonly/:updatedAt',getResourceByUpdatedDateOnly)
 
 
 
