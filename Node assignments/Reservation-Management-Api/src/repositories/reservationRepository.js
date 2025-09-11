@@ -3,19 +3,32 @@ const Reservation = require('../models/Reservation');
 const Resource = require('../models/Resource');
 const User = require('../models/User');
 
-const getReservationsByUser = async (userId) => {
-  return await Reservation.findAll({
+const getReservationsByUser = async (filters = {}) => {
+  const where = {};
 
-    where: { userId },
+  if (filters.resourceId) {
+    where.resourceId = filters.resourceId;
+  }
+
+  if (filters.userId) {
+    where.userId = filters.userId;
+  }
+
+  if (filters.startTime && filters.endTime) {
+    where.startTime = { [Op.gte]: new Date(filters.startTime) };
+    where.endTime = { [Op.lte]: new Date(filters.endTime) };
+  }
+
+  return await Reservation.findAll({
+    where,
     include: [
       { model: Resource, attributes: ['id', 'name', 'description'] },
       { model: User, attributes: ['id', 'username'] },
     ],
-
   });
-
-
 };
+
+
 
 const getAllReservations = async () => {
   return await Reservation.findAll({

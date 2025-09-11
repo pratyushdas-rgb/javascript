@@ -11,7 +11,17 @@ const getMyReservations = async (req, res, next) => {
 
 const getAllReservations = async (req, res, next) => {
   try {
-    const reservations = await reservationService.getAllReservations();
+    const {userId , resourceId, startTime, endTime} = req.query;
+    const filters = {}
+
+        if (userId) filters.userId = userId;
+        if (resourceId) filters.resourceId = resourceId;
+        if(startTime) filters.startTime=startTime;
+        if(endTime) filters.endTime=endTime;
+
+
+
+    const reservations = await reservationService.getAllReservations(filters);
     res.json(reservations);
   } catch (error) {
     next(error);

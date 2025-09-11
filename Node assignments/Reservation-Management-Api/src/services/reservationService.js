@@ -5,8 +5,8 @@ const getMyReservations = async (userId) => {
   return await reservationRepo.getReservationsByUser(userId);
 };
 
-const getAllReservations = async () => {
-  return await reservationRepo.getAllReservations();
+const getAllReservations = async (filters) => {
+  return await reservationRepo.getAllReservations(filters);
 };
 
 const createReservation = async (userId, resourceId, startTime, endTime) => {
