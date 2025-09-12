@@ -7,24 +7,26 @@ const {Op} = require('sequelize')
 const findAll = async (filters = {}) => {
   const where = {};
 
-  // name 
+
   if (filters.name) {
     where.name = filters.name;
   }
 
-  // updatedAt 
   if (filters.updatedAt) {
     where.updatedAt = new Date(filters.updatedAt);
   }
 
-  // date only 
   if (filters.updatedDateOnly) {
+
+
+
     const startOfDay = new Date(filters.updatedDateOnly);
     startOfDay.setHours(0, 0, 0, 0);
 
     const endOfDay = new Date(filters.updatedDateOnly);
     endOfDay.setHours(23, 59, 59, 999);
 
+    
     where.updatedAt = { [Op.between]: [startOfDay, endOfDay] };
   }
 
