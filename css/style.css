@@ -1,0 +1,41 @@
+:root {
+      --main-color: lightblue;
+      --hover-color: tomato;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    
+    .box {
+      width: 150px;
+      height: 100px;
+      background: var(--main-color);
+      margin: 10px;
+      float: left;
+      text-align: center;
+      line-height: 100px;
+    }
+
+    
+    .circle {
+      width: 100px;
+      height: 100px;
+      background: var(--main-color);
+      border-radius: 50%;
+      margin: 20px auto;
+      transition: transform 0.5s ease, background 0.5s;
+    }
+
+    .circle:hover {
+      background: var(--hover-color);
+      transform: rotate(45deg) scale(1.2);
+    }
+
+    
+    .container::after {
+      content: "";
+      display: block;
+      clear: both;
+    }

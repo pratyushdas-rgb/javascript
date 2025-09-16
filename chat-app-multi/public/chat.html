@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <h1>Chat Rooms</h1>
+  <div id="rooms"></div>
+  <input id="newRoom" placeholder="New Room Name">
+  <button onclick="createRoom()">Create Room</button>
+  
+  <div id="chat" style="display:none;">
+    <h2 id="roomName"></h2>
+    <div id="messages" style="height:300px; overflow-y:scroll; border:1px solid #ccc;"></div>
+    <input id="message" placeholder="Type message">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+  
+  <script src="/script.js"></script>
+</body>
+</html>
