@@ -1,0 +1,134 @@
+ :root {
+      --primary-color: #4CAF50;
+      --secondary-color: #f4f4f4;
+      --dark-color: #333;
+      --light-color: #fff;
+      --spacing: 20px;
+      --transition-speed: 0.3s;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      background-color: var(--secondary-color);
+      color: var(--dark-color);
+    }
+
+    header {
+      background-color: var(--primary-color);
+      padding: var(--spacing);
+      text-align: center;
+      color: var(--light-color);
+      animation: slideDown 1s ease-out forwards;
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    nav a {
+      color: var(--light-color);
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color var(--transition-speed);
+    }
+
+    nav a:hover {
+      color: #e0ffe0;
+    }
+
+    section {
+      padding: var(--spacing);
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .hero {
+      background: url('https://source.unsplash.com/1600x600/?technology,office') no-repeat center center/cover;
+      height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      background: rgba(0, 0, 0, 0.5);
+      padding: var(--spacing);
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .about, .services, .contact {
+      background: var(--light-color);
+      margin-top: var(--spacing);
+      border-radius: 8px;
+      padding: var(--spacing);
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      transition: transform var(--transition-speed);
+    }
+
+    .services .card {
+      display: inline-block;
+      width: 30%;
+      margin: 1%;
+      background: var(--secondary-color);
+      padding: var(--spacing);
+      border-radius: 8px;
+      text-align: center;
+      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    }
+
+    .services .card:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+    }
+
+    footer {
+      text-align: center;
+      background: var(--dark-color);
+      color: var(--light-color);
+      padding: var(--spacing);
+      margin-top: var(--spacing);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .services .card {
+        width: 100%;
+        margin: 10px 0;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+    }
